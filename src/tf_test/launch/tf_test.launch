@@ -1,0 +1,18 @@
+<launch>
+    <!-- //typefrom cmakelist node pkg from cmakelist -->
+    <param name="log_folder"      type="string"  value="$(find tf_test)" />
+
+     <arg name="map_file" default="$(find tf_test)/map/mymap.yaml"/>
+    <node pkg="map_server" name="map_server"  type="map_server" args="$(arg map_file)" />
+
+    <!-- <node pkg="tf" type="static_transform_publisher" name="world_to_map" args="0 0 0 0 0  0 /world  /map 100"/> -->
+
+     <!-- <node pkg="tf" type="static_transform_publisher" name="base_world_to_grid" args="-25 0 0 0 0  1 /world /grid  100"/> -->
+    <!-- <node name="nmea_topic_driver" pkg="nmea_navsat_driver" type="nmea_topic_driver" output="screen" /> -->
+     <node name="tf_test" pkg="tf_test" type="tf_test" output="screen" /> 
+
+    <node pkg="rviz" type="rviz" name="rviz" output="screen"
+        args="-d $(find tf_test)/rviz/tf_test.rviz" required="true">
+    </node>
+
+</launch>

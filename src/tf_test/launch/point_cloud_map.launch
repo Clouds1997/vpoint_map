@@ -1,0 +1,23 @@
+<launch>
+    <!-- //typefrom cmakelist node pkg from cmakelist -->
+    <param name="log_folder"      type="string"  value="$(find tf_test)" />
+
+     <param name="map_resolution"   type="double"  value="0.1" />
+     <param name="map_width"             type="int" value="2000" />
+     <param name="map_height"            type="int" value="2000" />
+     <!-- <param name="originx"                       type="int" value="-250" />
+     <param name="originy"                       type="int" value="-250" /> -->
+
+     <node pkg="tf" type="static_transform_publisher" name="map_to_map_odom" args="0 0 0 0 0  0 /pc_map  /map_odom 100"/>
+
+    <!-- <node name="nmea_topic_driver" pkg="nmea_navsat_driver" type="nmea_topic_driver" output="screen" /> -->
+    <node name="point_change_node" pkg="point_cloud" type="point_cloud" output="screen" />
+    <node name="pcmap_node" pkg="tf_test" type="point_cloud_map" output="screen" />
+    <node name="pcupdatemap_node" pkg="tf_test" type="updatemap" output="screen" />
+     <!-- <node pkg="tf" type="static_transform_publisher" name="base_world_to_grid" args="-25 0 0 0 0  1 /world /grid  100"/> -->
+
+    <node pkg="rviz" type="rviz" name="rviz" output="screen"
+        args="-d $(find tf_test)/rviz/pc_map.rviz" required="true">
+    </node>
+
+</launch>
